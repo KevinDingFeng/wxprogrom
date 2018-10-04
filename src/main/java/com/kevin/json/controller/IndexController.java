@@ -21,10 +21,9 @@ import com.kevin.service.ActivityService;
 import com.kevin.service.GoodService;
 import com.kevin.service.ShopService;
 import com.kevin.utils.JsonUtils;
-import com.kevin.utils.RedisUtil;
 
 @RestController
-@RequestMapping(value = "/index/")
+@RequestMapping(value = "/index")
 public class IndexController {
 	
 	@Autowired
@@ -33,8 +32,8 @@ public class IndexController {
 	private ShopService shopService;
 	@Autowired
 	private ActivityService activityService;
-	@Autowired
-	private RedisUtil redisUtil;
+//	@Autowired
+//	private RedisUtil redisUtil;
 	/**
 	 * 首页
 	 * 	商家信息
@@ -49,20 +48,21 @@ public class IndexController {
 	public Object index(HttpServletRequest request) {
 		String token = request.getHeader("token");
 		System.out.println("IndexController index token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
-		String shopIdStr = request.getHeader("shopId");
+//		if(!redisUtil.exists(token)) {TODO
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
+//		String shopIdStr = request.getHeader("shopId");
+		String shopIdStr = "1";
 		System.out.println("IndexController index shopId = " + shopIdStr);
-		if(shopIdStr == null) {
-			return JsonUtils.getFailJSONObject("invalid shopId");
-		}
+//		if(shopIdStr == null) {TODO
+//			return JsonUtils.getFailJSONObject("invalid shopId");
+//		}
 		Long shopId = Long.parseLong(shopIdStr);
 		JSONObject j = new JSONObject();
 		Shop shop = shopService.findById(shopId);
 		j.put("shop", shop);//商家信息
 		
-		Pageable pageable = new PageRequest(1, 10);
+		Pageable pageable = new PageRequest(0, 10);
 		Page<Good> pages = goodService.findAll(goodService.generateSpecification(Good.Type.Activity), pageable);
 		List<Good> list = new ArrayList<>();
 		if(pages != null) {
@@ -70,13 +70,17 @@ public class IndexController {
 		}
 		j.put("list", list);//推荐商品信息
 		
-		List<Good> gs = goodService.findByType(Good.Type.Second);
-		if(gs != null && gs.size() > 0) {
-			Good g = gs.get(0);
-			j.put("second", g);//秒杀商品信息
-		}
+//		List<Good> gs = goodService.findByType(Good.Type.Second);
+		pageable = new PageRequest(0, 1);
+		Page<Good> pgs = goodService.findAll(goodService.generateSpecification(Good.Type.Second), pageable);
+		List<Good> gs = pgs.getContent();
+		j.put("second", gs);
+//		if(gs != null && gs.size() > 0) {
+//			Good g = gs.get(0);
+//			j.put("second", g);//秒杀商品信息
+//		}
 		
-		pageable = new PageRequest(1, 1);
+		pageable = new PageRequest(0, 1);
 		Page<Activity> activity = activityService.findAll(pageable);
 		if(activity != null) {
 			List<Activity> as = activity.getContent();

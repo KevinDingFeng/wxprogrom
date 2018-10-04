@@ -18,7 +18,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.kevin.entity.Coupon;
 import com.kevin.service.CouponService;
 import com.kevin.utils.JsonUtils;
-import com.kevin.utils.RedisUtil;
 import com.kevin.utils.UserInfoUtil;
 
 @RestController
@@ -27,8 +26,8 @@ public class CouponController {
 
 	@Autowired
 	private CouponService couponService;
-	@Autowired
-	private RedisUtil redisUtil;
+//	@Autowired
+//	private RedisUtil redisUtil;
 	
 	/**
 	 * 获取积分商城展示的优惠券信息
@@ -40,9 +39,9 @@ public class CouponController {
 	public Object integral(HttpServletRequest request,  @RequestParam(value ="page") int page) {
 		String token = request.getHeader("token");
 		System.out.println("CouponController integral token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
+//		if(!redisUtil.exists(token)) {TODO
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
 		String shopIdStr = request.getHeader("shopId");
 		System.out.println("CouponController integral shopId = " + shopIdStr);
 		if(shopIdStr == null) {
@@ -76,9 +75,9 @@ public class CouponController {
 			@RequestParam(value ="page") int page) {
 		String token = request.getHeader("token");
 		System.out.println("CouponController list token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
+//		if(!redisUtil.exists(token)) {TODO
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
 		String shopIdStr = request.getHeader("shopId");
 		System.out.println("CouponController list shopId = " + shopIdStr);
 		if(shopIdStr == null) {
@@ -111,9 +110,9 @@ public class CouponController {
 			) {
 		String token = request.getHeader("token");
 		System.out.println("CouponController exchange token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
+//		if(!redisUtil.exists(token)) {TODO
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
 		Long userId = UserInfoUtil.getUserId(token);
 		if(userId == null) {
 			return JsonUtils.getFailJSONObject("invalid token");

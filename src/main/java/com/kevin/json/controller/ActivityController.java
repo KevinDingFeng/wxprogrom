@@ -18,7 +18,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.kevin.entity.Activity;
 import com.kevin.service.ActivityService;
 import com.kevin.utils.JsonUtils;
-import com.kevin.utils.RedisUtil;
 
 @RestController
 @RequestMapping(value = "/activity_json/")
@@ -26,16 +25,16 @@ public class ActivityController {
 
 	@Autowired
 	private ActivityService activityService;
-	@Autowired
-	private RedisUtil redisUtil;
+//	@Autowired
+//	private RedisUtil redisUtil;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public Object list(HttpServletRequest request, @RequestParam(value ="type") String type, @RequestParam(value ="page") int page) {
 		String token = request.getHeader("token");
 		System.out.println("ActivityController list token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
+//		if(!redisUtil.exists(token)) {TODO
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
 		
 		
 		String shopIdStr = request.getHeader("shopId");

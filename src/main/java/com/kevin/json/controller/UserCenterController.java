@@ -23,7 +23,6 @@ import com.kevin.service.PocketMoneyService;
 import com.kevin.service.PunchInService;
 import com.kevin.service.WXUserService;
 import com.kevin.utils.JsonUtils;
-import com.kevin.utils.RedisUtil;
 import com.kevin.utils.UserInfoUtil;
 
 @RestController
@@ -41,8 +40,8 @@ public class UserCenterController {
 	private PocketMoneyService pocketMoneyService;
 	@Autowired
 	private PunchInService punchInService;
-	@Autowired
-	private RedisUtil redisUtil;
+//	@Autowired
+//	private RedisUtil redisUtil;
 	/**
 	 * 个人中心
 	 * 	用户信息
@@ -59,15 +58,16 @@ public class UserCenterController {
 			) {
 		String token = request.getHeader("token");
 		System.out.println("UserCenterController index token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
+//		if(!redisUtil.exists(token)) {
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
 		
-		String shopIdStr = request.getHeader("shopId");
+//		String shopIdStr = request.getHeader("shopId");
+		String shopIdStr = "1";
 		System.out.println("UserCenterController index shopId = " + shopIdStr);
-		if(shopIdStr == null) {
-			return JsonUtils.getFailJSONObject("invalid shopId");
-		}
+//		if(shopIdStr == null) {
+//			return JsonUtils.getFailJSONObject("invalid shopId");
+//		}
 		Long shopId = Long.parseLong(shopIdStr);
 		Long userId = UserInfoUtil.getUserId(token);
 		if(userId == null) {

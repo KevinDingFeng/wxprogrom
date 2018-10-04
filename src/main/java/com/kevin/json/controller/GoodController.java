@@ -21,7 +21,6 @@ import com.kevin.entity.Order;
 import com.kevin.service.GoodService;
 import com.kevin.service.OrderService;
 import com.kevin.utils.JsonUtils;
-import com.kevin.utils.RedisUtil;
 import com.kevin.utils.UserInfoUtil;
 
 @RestController
@@ -32,8 +31,8 @@ public class GoodController {
 	private GoodService goodService;
 	@Autowired
 	private OrderService orderService;
-	@Autowired
-	private RedisUtil redisUtil;
+//	@Autowired
+//	private RedisUtil redisUtil;
 	
 	/**
 	 * 商品列表
@@ -45,14 +44,15 @@ public class GoodController {
 	public Object list(HttpServletRequest request, @RequestParam(value ="page") int page) {
 		String token = request.getHeader("token");
 		System.out.println("GoodController list token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
-		String shopIdStr = request.getHeader("shopId");
+//		if(!redisUtil.exists(token)) {TODO
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
+//		String shopIdStr = request.getHeader("shopId");
+		String shopIdStr = "1";
 		System.out.println("GoodController list shopId = " + shopIdStr);
-		if(shopIdStr == null) {
-			return JsonUtils.getFailJSONObject("invalid shopId");
-		}
+//		if(shopIdStr == null) {TODO
+//			return JsonUtils.getFailJSONObject("invalid shopId");
+//		}
 		Long shopId = Long.parseLong(shopIdStr);
 		
 		Pageable pageable = new PageRequest(page, 10);
@@ -75,9 +75,9 @@ public class GoodController {
 
 		String token = request.getHeader("token");
 		System.out.println("GoodController detail token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
+//		if(!redisUtil.exists(token)) {
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
 		Good good = goodService.findById(id);
 		
 		JSONObject j = new JSONObject();
@@ -95,14 +95,15 @@ public class GoodController {
 	public Object integral(HttpServletRequest request, @RequestParam(value ="page") int page) {
 		String token = request.getHeader("token");
 		System.out.println("GoodController integral token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
-		String shopIdStr = request.getHeader("shopId");
+//		if(!redisUtil.exists(token)) {
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
+//		String shopIdStr = request.getHeader("shopId");
+		String shopIdStr = "1";
 		System.out.println("GoodController integral shopIdStr = " + shopIdStr);
-		if(shopIdStr == null) {
-			return JsonUtils.getFailJSONObject("invalid shopId");
-		}
+//		if(shopIdStr == null) {
+//			return JsonUtils.getFailJSONObject("invalid shopId");
+//		}
 		Long shopId = Long.parseLong(shopIdStr);
 		
 		Pageable pageable = new PageRequest(page, 10);
@@ -124,9 +125,9 @@ public class GoodController {
 	public Object exchange(HttpServletRequest request, @RequestParam(value ="id") Long id) {
 		String token = request.getHeader("token");
 		System.out.println("GoodController exchange token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
+//		if(!redisUtil.exists(token)) {
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
 		Long userId = UserInfoUtil.getUserId(token);
 		if(userId == null) {
 			return JsonUtils.getFailJSONObject("invalid token");

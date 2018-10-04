@@ -15,7 +15,6 @@ import com.kevin.common.BaseResponse;
 import com.kevin.entity.WXUser;
 import com.kevin.service.WXUserService;
 import com.kevin.utils.JsonUtils;
-import com.kevin.utils.RedisUtil;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
@@ -32,8 +31,8 @@ public class KevinAuthController {
 //	private UserAuthCacheService cacheService;
 	@Autowired
 	private WXUserService userService;
-	@Autowired
-	private RedisUtil redisUtil;
+//	@Autowired
+//	private RedisUtil redisUtil;
 	
 
 	@RequestMapping(value = "/login_status", method = RequestMethod.GET)
@@ -65,9 +64,9 @@ public class KevinAuthController {
 	        }
 	        this.setCopyProperties(userInfo, user);
 	        user = userService.save(user);
-	        redisUtil.set(accessToken,
-	        		sessionKey + BaseResponse.splitChar + session.getOpenid() + BaseResponse.splitChar + user.getId(), 
-	        		BaseResponse.ex);//使用 redis 制作缓存，暂时使用数据库完成测试工作
+//	        redisUtil.set(accessToken, TODO
+//	        		sessionKey + BaseResponse.splitChar + session.getOpenid() + BaseResponse.splitChar + user.getId(), 
+//	        		BaseResponse.ex);//使用 redis 制作缓存，暂时使用数据库完成测试工作
 	        System.out.println("accessToken : " + accessToken);
 	        return JsonUtils.getSuccessJSONObject(accessToken);
 		}
@@ -112,10 +111,10 @@ public class KevinAuthController {
 		String token = request.getHeader("token");
 		System.out.println("KevinAuthController checkToken token : " + token);
 		
-		if(redisUtil.exists(token)) {
+//		if(redisUtil.exists(token)) { TODO
 			return JsonUtils.getSuccessJSONObject();
-		}
-		return JsonUtils.getFailJSONObject("invalid token");
+//		}
+//		return JsonUtils.getFailJSONObject("invalid token");
 	}
 	
 	@RequestMapping(value = "/user_info", method = RequestMethod.GET)
@@ -123,10 +122,11 @@ public class KevinAuthController {
 		String token = request.getHeader("token");
 		System.out.println("KevinAuthController userInfo token : " + token);
 		
-		String result = redisUtil.get(token);
-		if(result == null) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
+//		String result = redisUtil.get(token);
+//		if(result == null) { TODO
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
+		String result = "" + BaseResponse.splitChar + "oR2BG4xkgDb6IZPVaWsi_f_NfYoA";
 		String[] res = result.split(BaseResponse.splitChar);
 		if(res.length > 1) {
 			WXUser user = userService.findByOpenId(res[1]);

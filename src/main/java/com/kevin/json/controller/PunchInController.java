@@ -16,7 +16,6 @@ import com.kevin.entity.PunchIn;
 import com.kevin.service.PrizeService;
 import com.kevin.service.PunchInService;
 import com.kevin.utils.JsonUtils;
-import com.kevin.utils.RedisUtil;
 
 @RestController
 @RequestMapping(value = "/punch_in_json/")
@@ -26,22 +25,23 @@ public class PunchInController {
 	private PunchInService punchInService;
 	@Autowired
 	private PrizeService prizeService;
-	@Autowired
-	private RedisUtil redisUtil;
+//	@Autowired
+//	private RedisUtil redisUtil;
 	
 	@RequestMapping(value = "/sign", method = RequestMethod.GET)
 	public Object sign(HttpServletRequest request) {
 		String token = request.getHeader("token");
 		System.out.println("PunchInController sign token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
+//		if(!redisUtil.exists(token)) {TODO
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
 		
-		String shopIdStr = request.getHeader("shopId");
+//		String shopIdStr = request.getHeader("shopId");
+		String shopIdStr = "1";
 		System.out.println("PunchInController sign shopId = " + shopIdStr);
-		if(shopIdStr == null) {
-			return JsonUtils.getFailJSONObject("invalid shopId");
-		}
+//		if(shopIdStr == null) {
+//			return JsonUtils.getFailJSONObject("invalid shopId");
+//		}
 		Long shopId = Long.parseLong(shopIdStr);
 		PunchIn pi = punchInService.getOne(shopId);
 		
@@ -64,9 +64,9 @@ public class PunchInController {
 
 		String token = request.getHeader("token");
 		System.out.println("PunchInController list token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
+//		if(!redisUtil.exists(token)) {TODO
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
 		
 		List<PunchIn> list = punchInService.findAll();
 		return JsonUtils.getSuccessJSONObject(JSONObject.toJSON(list));

@@ -14,7 +14,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.kevin.entity.WXUser;
 import com.kevin.service.WXUserService;
 import com.kevin.utils.JsonUtils;
-import com.kevin.utils.RedisUtil;
 import com.kevin.utils.UserInfoUtil;
 
 @RestController
@@ -22,8 +21,8 @@ import com.kevin.utils.UserInfoUtil;
 public class WXUserController {
 	@Autowired
 	private WXUserService wxUserService;
-	@Autowired
-	private RedisUtil redisUtil;
+//	@Autowired
+//	private RedisUtil redisUtil;
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public Object create(HttpServletRequest request, 
@@ -31,9 +30,9 @@ public class WXUserController {
 			@RequestParam(value ="telephone") String telephone) {
 		String token = request.getHeader("token");
 		System.out.println("WXUserController create token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
+//		if(!redisUtil.exists(token)) {TODO
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
 		
 		String shopId = request.getHeader("shopId");
 		System.out.println("WXUserController create shopId = " + shopId);
@@ -57,9 +56,9 @@ public class WXUserController {
 	public Object list(HttpServletRequest request) {
 		String token = request.getHeader("token");
 		System.out.println("WXUserController list token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
+//		if(!redisUtil.exists(token)) {TODO
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
 		
 		String shopId = request.getHeader("shopId");
 		System.out.println("WXUserController list shopId = " + shopId);

@@ -14,7 +14,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.kevin.entity.Prize;
 import com.kevin.service.PrizeService;
 import com.kevin.utils.JsonUtils;
-import com.kevin.utils.RedisUtil;
 
 @RestController
 @RequestMapping(value = "/prize_json/")
@@ -22,8 +21,8 @@ public class PrizeController {
 
 	@Autowired
 	private PrizeService prizeService;
-	@Autowired
-	private RedisUtil redisUtil;
+//	@Autowired
+//	private RedisUtil redisUtil;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public Object list() {
@@ -35,15 +34,16 @@ public class PrizeController {
 	public Object prizes(HttpServletRequest request) {
 		String token = request.getHeader("token");
 		System.out.println("PrizeController prizes token : " + token);
-		if(!redisUtil.exists(token)) {
-			return JsonUtils.getFailJSONObject("invalid token");
-		}
-		
-		String shopIdStr = request.getHeader("shopId");
+//		if(!redisUtil.exists(token)) {
+//			return JsonUtils.getFailJSONObject("invalid token");
+//		}
+//		
+//		String shopIdStr = request.getHeader("shopId");
+		String shopIdStr = "1";
 		System.out.println("PrizeController prizes shopId = " + shopIdStr);
-		if(shopIdStr == null) {
-			return JsonUtils.getFailJSONObject("invalid shopId");
-		}
+//		if(shopIdStr == null) {
+//			return JsonUtils.getFailJSONObject("invalid shopId");
+//		}
 		Long shopId = Long.parseLong(shopIdStr);
 		List<Prize> list = prizeService.getPrizesByShopId(shopId);
 		
