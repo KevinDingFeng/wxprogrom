@@ -1,0 +1,23 @@
+发布注意事项：
+	1，spring boot 项目，原本可以打包成 jar 文件，直接运行，因为目前这套后台启动技术还没有成型，所以依然使用把项目打成 war 包，然后布置到 tomcat 容器的 webapps 目录下。
+		所以，在 spring boot 的自启动类中需要做如下修改：
+			1.1，继承 SpringBootServletInitializer
+			1.2，重写 configure方法，代码如下：
+				@Override
+			    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+			        // 注意这里要指向原先用main方法执行的Application启动类
+			        return builder.sources(AppApplication.class);
+			    }
+	2，原因同上，修改 pom.xml 文件，去掉 spring-boot-starter-web 文件下的 tomcat 内容，代码如下：
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- 移除嵌入式tomcat插件 -->
+		    <exclusions>
+		        <exclusion>
+		            <groupId>org.springframework.boot</groupId>
+		            <artifactId>spring-boot-starter-tomcat</artifactId>
+		        </exclusion>
+		    </exclusions>
+		</dependency>
+	3，修改 properties 文件，把 mysql 和 redis 数据库的链接方式修改为线上版本

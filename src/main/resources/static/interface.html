@@ -1,0 +1,233 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Amaze UI Admin table Examples</title>
+  <meta name="description" content="这是一个 table 页面">
+  <meta name="keywords" content="table">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="/wx/assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="/wx/assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="/wx/assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="/wx/assets/css/admin.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<header class="am-topbar am-topbar-inverse admin-header">
+  <div class="am-topbar-brand">
+    <strong>Amaze UI</strong> <small>后台管理模板</small>
+  </div>
+
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">5</span></a></li>
+      <li class="am-dropdown" data-am-dropdown>
+        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+          <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+        </a>
+        <ul class="am-dropdown-content">
+          <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+          <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+          <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+        </ul>
+      </li>
+      <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="am-cf admin-main">
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="admin-content-body">
+      <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">接口</strong> / <small>Interface</small></div>
+      </div>
+      <hr>
+      <div class="am-g">
+      	<div class="am-u-sm-12">
+          <h3>总结：</h3>
+          <p>关于前端对登录和授权部分的 token 管理，以及发送请求给后台时参数如何传递：</p>
+          
+          <p>token管理</p>
+          <p>先判断全局变量中是否存在token</p>
+          <p>&nbsp;&nbsp;如果存在，通过接口向后台发送该token，检测是否依然有效 </p>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;如果有效，通过后台接口发送该token，获取后台保存的用户信息</p>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;如果无效，指引用户完成授权流程和登录流程</p>
+          <p>&nbsp;&nbsp;如果不存在，指引用户完成授权流程和登录流程</p>
+          <p>通过微信的登录接口，可以获取到只能使用一次的code，把code和前端获取到的用户信息一起发送到后台接口，获取用户的token信息</p>
+          <p>把token信息保存到全局变量，以备请求使用</p>
+          <p>请求参数</p>
+          <p>请求的时候，把 token（必填） 和 shopId（必填） 添加到 header中，其他的参数放到data中，如：</p>
+          <p>header: {</p>
+		  <p>&nbsp;&nbsp;'token': 'afsdfasdfasdfasdf',</p>
+		  <p>&nbsp;&nbsp;'shopId': '123',</p>
+		  <p>&nbsp;&nbsp;'program': 'wxApp'</p>
+		  <p>},</p>
+          <p>data: {</p>
+		  <p>&nbsp;&nbsp;'goodId': '234'</p>
+		  <p>}</p>
+        </div>
+        <div class="am-u-sm-12">
+          <form class="am-form">
+            <table class="am-table am-table-striped am-table-hover table-main">
+              <thead>
+              <tr>
+                <th class="table-check"><input type="checkbox" /></th>
+                <th class="table-id">ID</th>
+                <th class="table-type">描述</th>
+                <th class="table-title">域名</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>1</td>
+                <td>获取抽奖奖项和抽奖结果</td>
+                <td><a href="https://www.dingfengkj.com/wx/prize_json/prizes">https://www.dingfengkj.com/wx/prize_json/prizes</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>2</td>
+                <td>提交签到，获取签到奖品</td>
+                <td><a href="https://www.dingfengkj.com/wx/punch_in_json/sign">https://www.dingfengkj.com/wx/punch_in_json/sign</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>3</td>
+                <td>分页获取商品信息列表</td>
+                <td><a href="https://www.dingfengkj.com/wx/good_json/list?page=1">https://www.dingfengkj.com/wx/good_json/list?page=1</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>4</td>
+                <td>新闻列表</td>
+                <td><a href="https://www.dingfengkj.com/wx/activity_json/list?type=News&page=1">https://www.dingfengkj.com/wx/activity_json/list?type=News&amp;page=1</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>5</td>
+                <td>活动列表</td>
+                <td><a href="https://www.dingfengkj.com/wx/activity_json/list?type=Activity&page=1">https://www.dingfengkj.com/wx/activity_json/list?type=Activity&amp;page=1</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>6</td>
+                <td>可兑换的优惠券</td>
+                <td><a href="https://www.dingfengkj.com/wx/coupon_json/integral?page=1">https://www.dingfengkj.com/wx/coupon_json/integral?page=1</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>7</td>
+                <td>可兑换的商品</td>
+                <td><a href="https://www.dingfengkj.com/wx/good_json/integral?page=1">https://www.dingfengkj.com/wx/good_json/integral?page=1</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>8</td>
+                <td>优惠券列表</td>
+                <td><a href="https://www.dingfengkj.com/wx/coupon_json/list?page=1">https://www.dingfengkj.com/wx/coupon_json/list?page=1</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>9</td>
+                <td>收藏商品列表</td>
+                <td><a href="https://www.dingfengkj.com/wx/collection_json/list?page=1">https://www.dingfengkj.com/wx/collection_json/list?page=1</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>10</td>
+                <td>商品详情</td>
+                <td><a href="https://www.dingfengkj.com/wx/good_json/1">https://www.dingfengkj.com/wx/good_json/1</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>11</td>
+                <td>进入首页</td>
+                <td><a href="https://www.dingfengkj.com/wx/index/">https://www.dingfengkj.com/wx/index/</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>12</td>
+                <td>进入个人中心</td>
+                <td><a href="https://www.dingfengkj.com/wx/user_center/">https://www.dingfengkj.com/wx/user_center/</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>13</td>
+                <td>提交会员信息(POST 请求，无法直接访问)</td>
+                <td><a href="https://www.dingfengkj.com/wx/wxuser_json/?name=xiaoqiang&telephone=18910739693">https://www.dingfengkj.com/wx/wxuser_json/?name=xiaoqiang&amp;telephone=18910739693</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>14</td>
+                <td>积分兑换商品</td>
+                <td><a href="https://www.dingfengkj.com/wx/good_json/exchange?id=1">https://www.dingfengkj.com/wx/good_json/exchange?id=1</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>15</td>
+                <td>积分兑换优惠券</td>
+                <td><a href="https://www.dingfengkj.com/wx/coupon_json/exchange?id=1">https://www.dingfengkj.com/wx/coupon_json/exchange?id=1</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>16</td>
+                <td>获取登录token(唯一一个不用提交 token 的接口)</td>
+                <td><a href="https://www.dingfengkj.com/wx/kevin/login_status?code=code&signature=signature&rawData=rawData&encryptedData=encryptedData&iv=iv">https://www.dingfengkj.com/wx/kevin/login_status?code=code&amp;signature=signature&amp;rawData=rawData&amp;encryptedData=encryptedData&amp;iv=iv</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>17</td>
+                <td>检测token</td>
+                <td><a href="https://www.dingfengkj.com/wx/kevin/check_token">https://www.dingfengkj.com/wx/kevin/check_token</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>18</td>
+                <td>获取用户信息</td>
+                <td><a href="https://www.dingfengkj.com/wx/kevin/user_info">https://www.dingfengkj.com/wx/kevin/user_info</a></td>
+              </tr>
+              </tbody>
+            </table>
+            <hr />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="admin-content-footer">
+      <hr>
+      <p class="am-padding-left">© 2018 衡水定风软件科技有限公司 冀ICP备18016768号</p>
+    </footer>
+
+  </div>
+  <!-- content end -->
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+<!--[if lt IE 9]>
+<script src="/wx/assets/js/jquery.min.js"></script>
+<script src="/wx/assets/js/modernizr.js"></script>
+<script src="/wx/assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/wx/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/wx/assets/js/amazeui.min.js"></script>
+<script src="/wx/assets/js/app.js"></script>
+</body>
+</html>
